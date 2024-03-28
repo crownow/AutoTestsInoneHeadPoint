@@ -27,26 +27,35 @@ sudo apt-get install -y git
 cd ~ 
 git clone https://p_denezhko:1dzQEC@git.head-point.ru/p_denezhko/Selenium_tests_UI.git
 sudo apt update
-sudo apt install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget 
+sudo apt install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget
+sleep 1
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt install -y ./google-chrome-stable_current_amd64.deb 
+sleep 1
 wget https://storage.googleapis.com/chrome-for-testing-public/123.0.6312.86/linux64/chromedriver-linux64.zip  
 unzip chromedriver-linux64.zip 
+sleep 1
 sudo mv chromedriver-linux64 /usr/local/bin/ 
 sudo chmod +x /usr/local/bin/chromedriver-linux64 
 cd ~ 
+sleep 1
 pip install --ignore-installed -r /home/inone/Selenium_tests_UI/requirements.txt 
+cd ~
 pip install pytest
+sleep 1
 export PATH="$HOME/.local/bin:$PATH" 
+sleep 1
 which pytest 
+sleep 1
 export PATH="$PATH:/home/inone/.local/bin"
+cd ~
 sudo apt-get update
 wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure_2.27.0-1_all.deb
 sudo dpkg -i allure_2.27.0-1_all.deb
 sudo apt-get update
 cd /home/inone/Selenium_tests_UI/tools 
 sleep 3 
-if pytest upload_license_and_confirm.py --headless --url=$server_ip; then
+if pytest /home/inone/Selenium_tests_UI/tools/upload_license_and_confirm.py --headless --url=$server_ip; then
     echo "Скрипт upload_license_and_confirm.py завершился успешно"
 else
     echo "Скрипт upload_license_and_confirm.py завершился с ошибкой, продолжаем выполнение скрипта"
