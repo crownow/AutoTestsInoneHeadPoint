@@ -17,6 +17,10 @@ sleep 3
 sudo apt-get install -y python3-pip 
 pip install -U pip 
 cd ~ 
+sudo apt update
+sudo apt install ruby
+sudo gem install lolcat
+cd ~
 server_ip=$(ip addr show | grep -oE 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -oE '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1) 
 cd ~ 
 sudo apt-get install -y git 
@@ -58,4 +62,5 @@ if pytest autofillingAPI.py --headless --url=$server_ip; then
     echo "CHECK TEST RESULTS ON $server_ip:1488"
 else
     echo "Тест autofilling_test.py завершился с ошибкой, обратитесь к allure-serve для подробностей и сообщите @p_denezhko"
+fi
 exit 0
