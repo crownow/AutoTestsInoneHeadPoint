@@ -32,11 +32,14 @@ sudo mv chromedriver-linux64 /usr/local/bin/
 sudo chmod +x /usr/local/bin/chromedriver-linux64 
 cd ~ 
 pip install --ignore-installed -r /home/inone/Selenium_tests_UI/requirements.txt 
-pip install pytest 
+pip install pytest
 export PATH="$HOME/.local/bin:$PATH" 
 which pytest 
-export PATH="$PATH:/home/inone/.local/bin" 
-sudo apt-get update 
+export PATH="$PATH:/home/inone/.local/bin"
+sudo apt-get update
+wget https://github.com/allure-framework/allure2/releases/download/2.27.0/allure_2.27.0-1_all.deb
+sudo dpkg -i allure_2.27.0-1_all.deb
+sudo apt-get update
 cd /home/inone/Selenium_tests_UI/tools 
 sleep 3 
 if pytest upload_license_and_confirm.py --headless --url=$server_ip; then
@@ -48,4 +51,7 @@ cd /home/inone/Selenium_tests_UI/autofilling/api
 sleep 5
 echo "IP-адрес сервера: $server_ip" 
 pytest autofillingAPI.py --headless --url=$server_ip
+cd /home/inone/Selenium_tests_UI
+pytest autofilling/test/autofilling_test.py --headless --url=$server_ip --alluredir=./allure-results
+allure serve --host $server_ip --port 1488 ./allure-results  
 exit 0
