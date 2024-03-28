@@ -57,20 +57,21 @@ sudo apt-get update
 cd /home/inone/Selenium_tests_UI/tools 
 sleep 3 
 if pytest /home/inone/Selenium_tests_UI/tools/upload_license_and_confirm.py --headless --url=$server_ip; then
-    echo "Скрипт upload_license_and_confirm.py завершился успешно"
+    echo "Script upload_license_and_confirm.py succesfull"
 else
-    echo "Скрипт upload_license_and_confirm.py завершился с ошибкой, продолжаем выполнение скрипта"
+    echo "Script upload_license_and_confirm.py was terminated with an error, continue script execution"
 fi
 cd /home/inone/Selenium_tests_UI/autofilling/api 
 sleep 5
-echo "IP-адрес сервера: $server_ip"
-figlet "CHECK TEST RESULTS ON $server_ip:1448" | lolcat
-echo "CHECK TEST RESULTS ON $server_ip:1448"
-if pytest autofillingAPI.py --headless --url=$server_ip; then
-    cd /home/inone/Selenium_tests_UI
-    pytest autofilling/test/autofilling_test.py --headless --url=$server_ip --alluredir=./allure-results
-    allure serve --host $server_ip --port 1448 ./allure-results
+echo "IP-address server: $server_ip"
+pytest autofillingAPI.py --headless --url=$server_ip
+cd /home/inone/Selenium_tests_UI
+if pytest autofilling/test/autofilling_test.py --headless --url=$server_ip --alluredir=./allure-results; then
+    figlet "ALL SUCCESFULL" | lolcat
+    cd ~
 else
-    echo "Тест autofilling_test.py завершился с ошибкой, обратитесь к allure-serve для подробностей и сообщите @p_denezhko"
+    figlet "CHECK TEST RESULTS ON $server_ip:1448" | lolcat
+    echo "CHECK TEST RESULTS ON $server_ip:1448 and message to @p_denezhko"
+    allure serve --host $server_ip --port 1448 ./allure-results
 fi
-exit 0
+cd ~
