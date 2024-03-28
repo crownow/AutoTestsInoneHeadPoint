@@ -20,6 +20,7 @@ cd ~
 sudo apt update
 sudo apt install -y ruby
 sudo gem install lolcat
+sudo apt-get install figlet
 cd ~
 server_ip=$(ip addr show | grep -oE 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -oE '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1) 
 cd ~ 
@@ -62,13 +63,13 @@ else
 fi
 cd /home/inone/Selenium_tests_UI/autofilling/api 
 sleep 5
-echo "IP-адрес сервера: $server_ip" 
+echo "IP-адрес сервера: $server_ip"
+figlet "CHECK TEST RESULTS ON $server_ip:1448" | lolcat
+echo "CHECK TEST RESULTS ON $server_ip:1448"
 if pytest autofillingAPI.py --headless --url=$server_ip; then
-    figlet "CHECK TEST RESULTS ON" | lolcat
     cd /home/inone/Selenium_tests_UI
     pytest autofilling/test/autofilling_test.py --headless --url=$server_ip --alluredir=./allure-results
-    allure serve --host $server_ip --port 1488 ./allure-results
-    echo "CHECK TEST RESULTS ON $server_ip:1488"
+    allure serve --host $server_ip --port 1448 ./allure-results
 else
     echo "Тест autofilling_test.py завершился с ошибкой, обратитесь к allure-serve для подробностей и сообщите @p_denezhko"
 fi
