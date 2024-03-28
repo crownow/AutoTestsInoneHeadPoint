@@ -70,8 +70,8 @@ if pytest autofilling/test/autofilling_test.py --headless --url=$server_ip --all
     figlet "ALL SUCCESFULL" | lolcat
     cd ~
 else
-    figlet "CHECK TEST RESULTS ON $server_ip:1448" | lolcat
-    echo "CHECK TEST RESULTS ON $server_ip:1448 and message to @p_denezhko"
-    allure serve --host $server_ip --port 1448 ./allure-results
+    server_ip=$(ip addr show | grep -oE 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -oE '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1) 
+    figlet "CHECK TEST RESULTS ON $server_ip:999" | lolcat
+    echo "CHECK TEST RESULTS ON $server_ip:999 and message to @p_denezhko"
+    allure serve --host $server_ip --port 999 ./allure-results
 fi
-cd ~
