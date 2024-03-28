@@ -18,7 +18,7 @@ sudo apt-get install -y python3-pip
 pip install -U pip 
 cd ~ 
 sudo apt update
-sudo apt install ruby
+sudo apt install -y ruby
 sudo gem install lolcat
 cd ~
 server_ip=$(ip addr show | grep -oE 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -oE '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1) 
